@@ -47,7 +47,7 @@ public class TargetWindow : Window, IDisposable
 
     public override bool DrawConditions()
     {
-        var actor = Plugin.ClientState.LocalPlayer;
+        var actor = Plugin.TargetManager.Target;
         if (actor == null || !Plugin.Configuration.ShowTargetPositionWindow || (Plugin.Configuration.HideOutsideInstance && !Plugin.Condition[ConditionFlag.BoundByDuty]))
         {
             return false;
@@ -57,7 +57,7 @@ public class TargetWindow : Window, IDisposable
 
     public override void PreDraw()
     {
-        var actor = Plugin.ClientState.LocalPlayer;
+        var actor = Plugin.TargetManager.Target;
 
         if (actor == null) return;
 
