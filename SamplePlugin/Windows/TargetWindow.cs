@@ -11,22 +11,22 @@ using Dalamud.Game.ClientState.Conditions;
 
 namespace YouAreHere.Windows;
 
-public class MainWindow : Window, IDisposable
+public class TargetWindow : Window, IDisposable
 {
     private Plugin Plugin;
-    private string xText = string.Empty;
-    private string yText = string.Empty;
-    private string zText = string.Empty;
+    private string targetXText = string.Empty;
+    private string targetYText = string.Empty;
+    private string targetZText = string.Empty;
     private Vector2 windowSize = new Vector2(50f, 53f);
 
 
-    public MainWindow(Plugin plugin)
-        : base("Player Position Window##YAHPlayerPositionWindow", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration)
+    public TargetWindow(Plugin plugin)
+        : base("Target Position Window##YAHTargetPositionWindow", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration)
     {
         this.DisableWindowSounds = true;
         this.RespectCloseHotkey = false;
 
-        this.Position = new(0, 0);
+        this.Position = new(55f, 0f);
 
         this.PositionCondition = ImGuiCond.Always;
         this.SizeCondition = ImGuiCond.Always;
@@ -48,7 +48,7 @@ public class MainWindow : Window, IDisposable
     public override bool DrawConditions()
     {
         var actor = Plugin.ClientState.LocalPlayer;
-        if (actor == null || !Plugin.Configuration.ShowPlayerPositionWindow || (Plugin.Configuration.HideOutsideInstance && !Plugin.Condition[ConditionFlag.BoundByDuty]))
+        if (actor == null || !Plugin.Configuration.ShowTargetPositionWindow || (Plugin.Configuration.HideOutsideInstance && !Plugin.Condition[ConditionFlag.BoundByDuty]))
         {
             return false;
         }
@@ -61,9 +61,9 @@ public class MainWindow : Window, IDisposable
 
         if (actor == null) return;
 
-        xText = FormatPOSValue(actor.Position.X);
-        yText = FormatPOSValue(actor.Position.Y);
-        zText = FormatPOSValue(actor.Position.Z);
+        targetXText = FormatPOSValue(actor.Position.X);
+        targetYText = FormatPOSValue(actor.Position.Y);
+        targetZText = FormatPOSValue(actor.Position.Z);
 
 
         ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
@@ -74,9 +74,9 @@ public class MainWindow : Window, IDisposable
     public override void Draw()
     {
 
-        ImGui.Text(xText);
-        ImGui.Text(zText);
-        ImGui.Text(yText);
+        ImGui.Text(targetXText);
+        ImGui.Text(targetZText);
+        ImGui.Text(targetYText);
     }
 
     public override void PostDraw()
