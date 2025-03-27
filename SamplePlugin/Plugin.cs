@@ -46,7 +46,7 @@ public sealed class Plugin : IDalamudPlugin
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "A useful message to display in /xlhelp"
+            HelpMessage = "You Are Here Configuration Menu"
         });
 
         PluginInterface.UiBuilder.Draw += DrawUI;
