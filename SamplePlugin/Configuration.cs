@@ -12,6 +12,7 @@ public class Configuration : IPluginConfiguration
     public bool ShowPlayerPositionWindow { get; set; } = true;
     public bool ShowTargetPositionWindow { get; set; } = true;
     public bool HideOutsideInstance { get; set; } = true;
+    public bool OffsetCoordinatesToZero { get; set; } = false;
 
     // the below exist just to make saving less cumbersome
     public void Save()

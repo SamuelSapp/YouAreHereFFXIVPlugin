@@ -47,7 +47,7 @@ public class MainWindow : Window, IDisposable
 
     public override bool DrawConditions()
     {
-        var actor = Plugin.ClientState.LocalPlayer;
+        var actor = Plugin.ObjectTable.LocalPlayer;
         if (actor == null || !Plugin.Configuration.ShowPlayerPositionWindow || (Plugin.Configuration.HideOutsideInstance && !Plugin.Condition[ConditionFlag.BoundByDuty]))
         {
             return false;
@@ -57,13 +57,22 @@ public class MainWindow : Window, IDisposable
 
     public override void PreDraw()
     {
-        var actor = Plugin.ClientState.LocalPlayer;
+        var actor = Plugin.ObjectTable.LocalPlayer;
 
         if (actor == null) return;
 
-        xText = FormatPOSValue(actor.Position.X);
+        if (Plugin.Configuration.OffsetCoordinatesToZero)
+        {
+            xText = FormatPOSValue(actor.Position.X -100);
+            zText = FormatPOSValue(actor.Position.Z -100);
+        } else
+        {
+            xText = FormatPOSValue(actor.Position.X);
+            zText = FormatPOSValue(actor.Position.Z);
+        }
+        
         yText = FormatPOSValue(actor.Position.Y);
-        zText = FormatPOSValue(actor.Position.Z);
+        
 
 
         ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));

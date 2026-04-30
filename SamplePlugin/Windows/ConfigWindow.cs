@@ -11,10 +11,10 @@ public class ConfigWindow : Window, IDisposable
 
     public ConfigWindow(Plugin plugin) : base("You Are Here Config##YAHConfig")
     {
-        Flags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
+        Flags = ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
                 ImGuiWindowFlags.NoScrollWithMouse;
 
-        Size = new Vector2(232, 115);
+        //Size = new Vector2(232, 115);
         SizeCondition = ImGuiCond.Always;
 
         Configuration = plugin.Configuration;
@@ -49,6 +49,13 @@ public class ConfigWindow : Window, IDisposable
         if (ImGui.Checkbox("Hide Outside Instance", ref isHideInstance))
         {
             Configuration.HideOutsideInstance = isHideInstance;
+            Configuration.Save();
+        }
+
+        var offsetToZero = Configuration.OffsetCoordinatesToZero;
+        if (ImGui.Checkbox("Offset Coordinates By -100", ref offsetToZero))
+        {
+            Configuration.OffsetCoordinatesToZero = offsetToZero;
             Configuration.Save();
         }
 

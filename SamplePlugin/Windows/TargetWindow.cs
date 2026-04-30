@@ -60,10 +60,17 @@ public class TargetWindow : Window, IDisposable
         var actor = Plugin.TargetManager.Target;
 
         if (actor == null) return;
+        if (Plugin.Configuration.OffsetCoordinatesToZero)
+        {
+            targetXText = FormatPOSValue(actor.Position.X -100);
+            targetZText = FormatPOSValue(actor.Position.Z -100);
+        } else
+        {
+            targetXText = FormatPOSValue(actor.Position.X);
+            targetZText = FormatPOSValue(actor.Position.Z);
+        }
 
-        targetXText = FormatPOSValue(actor.Position.X);
         targetYText = FormatPOSValue(actor.Position.Y);
-        targetZText = FormatPOSValue(actor.Position.Z);
 
 
         ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
